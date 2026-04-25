@@ -1,0 +1,46 @@
+[resource]
+name = "tailscale_oauth_client"
+description = "OAuth client for programmatic access to the Tailscale API. Issues client_id + client_secret used to mint short-lived API tokens."
+category = "oauth"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/oauth-clients"
+read_endpoint   = "/api/v2/oauth-clients/{id}"
+delete_endpoint = "/api/v2/oauth-clients/{id}"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.scopes]
+type = "List"
+required = true
+description = "Set of scopes the client may request. See https://tailscale.com/kb/1623."
+
+[fields.description]
+type = "String"
+required = false
+description = "Free-form description (alphanumeric)."
+
+[fields.tags]
+type = "List"
+required = false
+description = "Tags tokens issued to this client may assign to devices. Required if scopes include devices:core or auth_keys."
+
+[fields.key]
+computed = true
+sensitive = true
+description = "Client secret used together with the client ID. Set on creation only."
+
+[fields.created_at]
+computed = true
+description = "RFC3339 creation timestamp."
+
+[fields.updated_at]
+computed = true
+description = "RFC3339 last-update timestamp."
+
+[fields.user_id]
+computed = true
+description = "User who created the OAuth client (empty if created by another trust credential)."

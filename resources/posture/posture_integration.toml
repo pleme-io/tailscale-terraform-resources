@@ -1,0 +1,42 @@
+[resource]
+name = "tailscale_posture_integration"
+description = "Device posture data integration with a third-party MDM/EDR (falcon, fleet, huntress, intune, jamfpro, kandji, kolide, sentinelone)."
+category = "posture"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/posture/integrations"
+update_endpoint = "/api/v2/posture/integrations/{id}"
+read_endpoint   = "/api/v2/posture/integrations/{id}"
+delete_endpoint = "/api/v2/posture/integrations/{id}"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = ["posture_provider"]
+
+[fields.posture_provider]
+type = "String"
+required = true
+description = "Third-party posture provider."
+enum = ["falcon", "fleet", "huntress", "intune", "jamfpro", "kandji", "kolide", "sentinelone"]
+
+[fields.client_secret]
+type = "String"
+required = true
+sensitive = true
+description = "Provider auth secret (auth key, token, etc.)."
+
+[fields.client_id]
+type = "String"
+required = false
+description = "Provider client identifier."
+
+[fields.cloud_id]
+type = "String"
+required = false
+description = "Provider cloud (e.g. 'us-1' for Falcon)."
+
+[fields.tenant_id]
+type = "String"
+required = false
+description = "Microsoft Intune directory (tenant) ID. Empty for other providers."

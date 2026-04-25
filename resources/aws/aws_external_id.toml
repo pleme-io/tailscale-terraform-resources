@@ -1,0 +1,22 @@
+[resource]
+name = "tailscale_aws_external_id"
+description = "Mints an AWS External ID Tailscale uses when assuming an IAM role for log streaming to S3."
+category = "aws"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/aws-external-id"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/aws-external-id/{id}"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/aws-external-id/{id}"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.external_id]
+computed = true
+description = "External ID Tailscale will supply when assuming your IAM role."
+
+[fields.tailscale_aws_account_id]
+computed = true
+description = "AWS account ID from which Tailscale will assume your IAM role."

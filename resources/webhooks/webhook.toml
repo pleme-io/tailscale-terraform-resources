@@ -1,0 +1,36 @@
+[resource]
+name = "tailscale_webhook"
+description = "Webhook endpoint for tailnet events. See https://tailscale.com/kb/1213/webhooks for the event catalog."
+category = "webhooks"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/webhooks"
+update_endpoint = "/api/v2/webhooks/{endpointId}"
+read_endpoint   = "/api/v2/webhooks/{endpointId}"
+delete_endpoint = "/api/v2/webhooks/{endpointId}"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.endpoint_url]
+type = "String"
+required = true
+description = "Destination URL for webhook events."
+
+[fields.subscriptions]
+type = "List"
+required = true
+description = "Set of event types triggering this webhook (e.g. nodeCreated, userDeleted)."
+
+[fields.provider_type]
+type = "String"
+required = false
+description = "Payload format. Valid values: slack, mattermost, googlechat, discord."
+enum = ["slack", "mattermost", "googlechat", "discord"]
+
+[fields.secret]
+computed = true
+sensitive = true
+description = "Signing secret returned on creation (used for HMAC verification of incoming payloads)."

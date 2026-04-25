@@ -1,0 +1,18 @@
+[provider]
+name = "tailscale"
+version = "0.1.0"
+description = "Tailscale VPN platform — tailnet ACL, DNS, devices, keys, webhooks, and posture integrations"
+source = "tailscale/tailscale"
+source_version = "0.28.0"
+documentation = "https://registry.terraform.io/providers/tailscale/tailscale/latest/docs"
+
+[provider.auth]
+oauth_client_id     = { type = "String", required = false, sensitive = false, env = "TAILSCALE_OAUTH_CLIENT_ID",     description = "OAuth client ID minted at https://login.tailscale.com/admin/settings/oauth" }
+oauth_client_secret = { type = "String", required = false, sensitive = true,  env = "TAILSCALE_OAUTH_CLIENT_SECRET", description = "OAuth client secret paired with oauth_client_id" }
+api_key             = { type = "String", required = false, sensitive = true,  env = "TAILSCALE_API_KEY",             description = "Personal API key (deprecated — prefer OAuth client)" }
+tailnet             = { type = "String", required = false, sensitive = false, env = "TAILSCALE_TAILNET",              description = "Tailnet identifier; '-' selects the default tailnet of the authenticated principal" }
+base_url            = { type = "String", required = false, sensitive = false, env = "TAILSCALE_BASE_URL",             default = "https://api.tailscale.com", description = "Tailscale API base URL (override for self-hosted Headscale)" }
+user_agent          = { type = "String", required = false, sensitive = false, default = "pangea-tailscale/0.1.0",     description = "User-Agent header sent with API requests" }
+
+[provider.skip_fields]
+fields = []

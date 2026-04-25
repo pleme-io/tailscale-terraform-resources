@@ -1,0 +1,30 @@
+[resource]
+name = "tailscale_acl"
+description = "Tailnet policy file (HuJSON or JSON). Overwrites the entire policy file for the tailnet."
+category = "acl"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/acl"
+update_endpoint = "/api/v2/tailnet/{tailnet}/acl"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/acl"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/acl"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.acl]
+type = "String"
+required = true
+description = "Policy that defines which devices and users are allowed to connect. Either JSON or HuJSON."
+
+[fields.overwrite_existing_content]
+type = "Boolean"
+required = false
+description = "If true, skip the import-before-edit requirement (can clobber the policy file)."
+
+[fields.reset_acl_on_destroy]
+type = "Boolean"
+required = false
+description = "If true, reset the tailnet policy file to default when this resource is destroyed."

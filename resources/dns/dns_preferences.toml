@@ -1,0 +1,20 @@
+[resource]
+name = "tailscale_dns_preferences"
+description = "MagicDNS toggle for the tailnet (legacy — prefer dns_configuration)."
+category = "dns"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/dns/preferences"
+update_endpoint = "/api/v2/tailnet/{tailnet}/dns/preferences"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/dns/preferences"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/dns/preferences"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.magic_dns]
+type = "Boolean"
+required = true
+description = "Whether MagicDNS is enabled."

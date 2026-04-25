@@ -1,0 +1,25 @@
+[resource]
+name = "tailscale_device_authorization"
+description = "Approves a device for the tailnet (when device approval is enabled)."
+category = "devices"
+
+[crud]
+create_endpoint = "/api/v2/device/{deviceId}/authorized"
+update_endpoint = "/api/v2/device/{deviceId}/authorized"
+read_endpoint   = "/api/v2/device/{deviceId}"
+delete_endpoint = "/api/v2/device/{deviceId}/authorized"
+
+[identity]
+id_field = "id"
+import_field = "device_id"
+force_new_fields = ["device_id"]
+
+[fields.device_id]
+type = "String"
+required = true
+description = "Device to authorize (prefer the stable node_id over the legacy numeric id)."
+
+[fields.authorized]
+type = "Boolean"
+required = true
+description = "Whether the device is authorized to join the tailnet."

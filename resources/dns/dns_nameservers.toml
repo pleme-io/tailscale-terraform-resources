@@ -1,0 +1,20 @@
+[resource]
+name = "tailscale_dns_nameservers"
+description = "Tailnet-wide DNS nameservers (legacy, single-aspect resource — prefer dns_configuration)."
+category = "dns"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/dns/nameservers"
+update_endpoint = "/api/v2/tailnet/{tailnet}/dns/nameservers"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/dns/nameservers"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/dns/nameservers"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.nameservers]
+type = "List"
+required = true
+description = "List of nameserver IPv4/IPv6 addresses."

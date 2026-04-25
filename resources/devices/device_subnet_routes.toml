@@ -1,0 +1,25 @@
+[resource]
+name = "tailscale_device_subnet_routes"
+description = "Subnet routes enabled on a device (the device must also advertise them)."
+category = "devices"
+
+[crud]
+create_endpoint = "/api/v2/device/{deviceId}/routes"
+update_endpoint = "/api/v2/device/{deviceId}/routes"
+read_endpoint   = "/api/v2/device/{deviceId}/routes"
+delete_endpoint = "/api/v2/device/{deviceId}/routes"
+
+[identity]
+id_field = "id"
+import_field = "device_id"
+force_new_fields = ["device_id"]
+
+[fields.device_id]
+type = "String"
+required = true
+description = "Device to set subnet routes for."
+
+[fields.routes]
+type = "List"
+required = true
+description = "Set of CIDR strings enabled on the device. Use 0.0.0.0/0 + ::/0 for an exit node."

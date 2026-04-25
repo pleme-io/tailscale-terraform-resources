@@ -1,0 +1,62 @@
+[resource]
+name = "tailscale_federated_identity"
+description = "Workload identity federation — allow an external OIDC issuer to mint Tailscale API tokens without a stored secret."
+category = "identity"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/federated-identity"
+update_endpoint = "/api/v2/tailnet/{tailnet}/federated-identity/{id}"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/federated-identity/{id}"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/federated-identity/{id}"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.issuer]
+type = "String"
+required = true
+description = "OIDC issuer URL (https). Must be publicly reachable."
+
+[fields.subject]
+type = "String"
+required = true
+description = "Pattern matched against the OIDC token's sub claim. Wildcards (*) allowed."
+
+[fields.scopes]
+type = "List"
+required = true
+description = "Scopes the federated identity may exchange for tokens. See https://tailscale.com/kb/1623."
+
+[fields.audience]
+type = "String"
+required = false
+description = "Override the audience claim (auto-generated if omitted)."
+
+[fields.tags]
+type = "List"
+required = false
+description = "Tags federated tokens may assign to devices. Required if scopes include devices:core or auth_keys."
+
+[fields.description]
+type = "String"
+required = false
+description = "Free-form description (alphanumeric)."
+
+[fields.custom_claim_rules]
+type = "Map"
+required = false
+description = "Map of OIDC claim name → pattern. Wildcards (*) allowed."
+
+[fields.created_at]
+computed = true
+description = "RFC3339 creation timestamp."
+
+[fields.updated_at]
+computed = true
+description = "RFC3339 last-update timestamp."
+
+[fields.user_id]
+computed = true
+description = "User who created this federated identity (empty if created by another trust credential)."

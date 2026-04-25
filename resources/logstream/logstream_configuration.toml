@@ -1,0 +1,117 @@
+[resource]
+name = "tailscale_logstream_configuration"
+description = "Stream tailnet audit and network-flow logs to a SIEM (axiom, cribl, datadog, elastic, gcs, panther, splunk, s3)."
+category = "logstream"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/logging/{logType}/stream"
+update_endpoint = "/api/v2/tailnet/{tailnet}/logging/{logType}/stream"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/logging/{logType}/stream"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/logging/{logType}/stream"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = ["log_type"]
+
+[fields.log_type]
+type = "String"
+required = true
+description = "Log stream type. Valid values: configuration, network."
+enum = ["configuration", "network"]
+
+[fields.destination_type]
+type = "String"
+required = true
+description = "SIEM destination type."
+enum = ["axiom", "cribl", "datadog", "elastic", "gcs", "panther", "splunk", "s3"]
+
+[fields.compression_format]
+type = "String"
+required = false
+description = "Compression algorithm. Defaults to none."
+enum = ["none", "zstd", "gzip"]
+
+[fields.url]
+type = "String"
+required = false
+description = "Destination URL (leave empty for AWS S3 official endpoint)."
+
+[fields.token]
+type = "String"
+required = false
+sensitive = true
+description = "Bearer token for the destination (required unless destination_type = s3)."
+
+[fields.user]
+type = "String"
+required = false
+description = "Username for elastic destinations."
+
+[fields.upload_period_minutes]
+type = "Number"
+required = false
+description = "Minutes between log uploads."
+
+[fields.s3_bucket]
+type = "String"
+required = false
+description = "S3 bucket name (required when destination_type = s3)."
+
+[fields.s3_region]
+type = "String"
+required = false
+description = "S3 region (required when destination_type = s3)."
+
+[fields.s3_authentication_type]
+type = "String"
+required = false
+description = "S3 auth type — 'rolearn' (recommended) or 'accesskey'."
+enum = ["rolearn", "accesskey"]
+
+[fields.s3_access_key_id]
+type = "String"
+required = false
+description = "S3 access key ID (required when s3_authentication_type = accesskey)."
+
+[fields.s3_secret_access_key]
+type = "String"
+required = false
+sensitive = true
+description = "S3 secret access key (required when s3_authentication_type = accesskey)."
+
+[fields.s3_role_arn]
+type = "String"
+required = false
+description = "IAM role ARN Tailscale assumes (required when s3_authentication_type = rolearn)."
+
+[fields.s3_external_id]
+type = "String"
+required = false
+description = "AWS External ID Tailscale supplies on assume-role (required when s3_authentication_type = rolearn). Wire from tailscale_aws_external_id."
+
+[fields.s3_key_prefix]
+type = "String"
+required = false
+description = "Optional S3 key prefix prepended to log objects."
+
+[fields.gcs_bucket]
+type = "String"
+required = false
+description = "GCS bucket name (required when destination_type = gcs)."
+
+[fields.gcs_credentials]
+type = "String"
+required = false
+sensitive = true
+description = "JSON-encoded workload-identity credentials for GCS."
+
+[fields.gcs_key_prefix]
+type = "String"
+required = false
+description = "Optional GCS key prefix."
+
+[fields.gcs_scopes]
+type = "List"
+required = false
+description = "Set of GCS scopes for write access."

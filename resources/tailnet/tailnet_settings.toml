@@ -1,0 +1,69 @@
+[resource]
+name = "tailscale_tailnet_settings"
+description = "Tailnet-wide settings — device approval, key duration, https, network-flow logging, posture identity collection."
+category = "tailnet"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/settings"
+update_endpoint = "/api/v2/tailnet/{tailnet}/settings"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/settings"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.acls_externally_managed_on]
+type = "Boolean"
+required = false
+description = "Block admin-console policy edits to avoid drift with external (GitOps/Terraform) management."
+
+[fields.acls_external_link]
+type = "String"
+required = false
+description = "URL of the external ACL definition (shown to admins)."
+
+[fields.devices_approval_on]
+type = "Boolean"
+required = false
+description = "Whether device approval is enabled."
+
+[fields.devices_auto_updates_on]
+type = "Boolean"
+required = false
+description = "Whether device auto-updates are enabled."
+
+[fields.devices_key_duration_days]
+type = "Number"
+required = false
+description = "Device key expiry in days."
+
+[fields.users_approval_on]
+type = "Boolean"
+required = false
+description = "Whether user approval is enabled."
+
+[fields.users_role_allowed_to_join_external_tailnet]
+type = "String"
+required = false
+description = "Which roles may join external tailnets."
+
+[fields.posture_identity_collection_on]
+type = "Boolean"
+required = false
+description = "Whether posture identity collection is enabled."
+
+[fields.https_enabled]
+type = "Boolean"
+required = false
+description = "Whether HTTPS provisioning (Let's Encrypt) is enabled for the tailnet."
+
+[fields.network_flow_logging_on]
+type = "Boolean"
+required = false
+description = "Whether network-flow logging is enabled."
+
+[fields.regional_routing_on]
+type = "Boolean"
+required = false
+description = "Whether regional routing is enabled."

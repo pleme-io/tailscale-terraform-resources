@@ -1,0 +1,29 @@
+[resource]
+name = "tailscale_contacts"
+description = "Tailnet contact preferences for account, support, and security communications."
+category = "contacts"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/contacts"
+update_endpoint = "/api/v2/tailnet/{tailnet}/contacts/{type}"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/contacts"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.account]
+type = "String"
+required = true
+description = "JSON-encoded { email = string } block for account communications."
+
+[fields.support]
+type = "String"
+required = true
+description = "JSON-encoded { email = string } block for support communications."
+
+[fields.security]
+type = "String"
+required = true
+description = "JSON-encoded { email = string } block for security communications."

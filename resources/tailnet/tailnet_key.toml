@@ -1,0 +1,71 @@
+[resource]
+name = "tailscale_tailnet_key"
+description = "Pre-authentication (auth) key — register new nodes without a browser sign-in."
+category = "tailnet"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/keys"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/keys/{keyId}"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/keys/{keyId}"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.reusable]
+type = "Boolean"
+required = false
+description = "Reusable vs single-use. Defaults to false."
+
+[fields.ephemeral]
+type = "Boolean"
+required = false
+description = "Ephemeral nodes are auto-removed when offline. Defaults to false."
+
+[fields.preauthorized]
+type = "Boolean"
+required = false
+description = "Auto-authorize nodes joined with this key. Defaults to false."
+
+[fields.expiry]
+type = "Number"
+required = false
+description = "Key expiry in seconds. Defaults to 7776000 (90 days)."
+
+[fields.description]
+type = "String"
+required = false
+description = "Free-form description (alphanumeric)."
+
+[fields.tags]
+type = "List"
+required = false
+description = "Tags applied to nodes authenticated by this key."
+
+[fields.recreate_if_invalid]
+type = "String"
+required = false
+description = "Recreate when invalid: 'always' or 'never'. Reusable keys default to 'always', single-use to 'never'."
+enum = ["always", "never"]
+
+[fields.user_id]
+computed = true
+description = "User who created the key (empty for OAuth-client creations)."
+
+[fields.key]
+computed = true
+sensitive = true
+description = "The auth key itself. Set on creation only."
+
+[fields.created_at]
+computed = true
+description = "RFC3339 creation timestamp."
+
+[fields.expires_at]
+computed = true
+description = "RFC3339 expiry timestamp."
+
+[fields.invalid]
+computed = true
+description = "Whether the key is invalid (expired, revoked, deleted)."

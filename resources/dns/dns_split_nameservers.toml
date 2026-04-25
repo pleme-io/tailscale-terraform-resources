@@ -1,0 +1,25 @@
+[resource]
+name = "tailscale_dns_split_nameservers"
+description = "Per-domain split-DNS nameservers (legacy — prefer dns_configuration)."
+category = "dns"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/dns/split-dns"
+update_endpoint = "/api/v2/tailnet/{tailnet}/dns/split-dns"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/dns/split-dns"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/dns/split-dns/{domain}"
+
+[identity]
+id_field = "id"
+import_field = "domain"
+force_new_fields = ["domain"]
+
+[fields.domain]
+type = "String"
+required = true
+description = "Domain to attach split-DNS nameservers to."
+
+[fields.nameservers]
+type = "List"
+required = true
+description = "Set of nameserver IPv4/IPv6 addresses serving this domain."

@@ -1,0 +1,40 @@
+[resource]
+name = "tailscale_dns_configuration"
+description = "Tailnet-wide DNS configuration (nameservers + split DNS + search paths + magic DNS). Conflicts with the per-aspect dns_* resources."
+category = "dns"
+
+[crud]
+create_endpoint = "/api/v2/tailnet/{tailnet}/dns/configuration"
+update_endpoint = "/api/v2/tailnet/{tailnet}/dns/configuration"
+read_endpoint   = "/api/v2/tailnet/{tailnet}/dns/configuration"
+delete_endpoint = "/api/v2/tailnet/{tailnet}/dns/configuration"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.magic_dns]
+type = "Boolean"
+required = false
+description = "Whether to enable MagicDNS. Defaults to true."
+
+[fields.override_local_dns]
+type = "Boolean"
+required = false
+description = "Use configured nameservers for non-tailnet queries instead of local DNS. Defaults to false."
+
+[fields.search_paths]
+type = "List"
+required = false
+description = "Additional DNS search domains appended to the tailnet suffix."
+
+[fields.nameservers]
+type = "String"
+required = false
+description = "JSON-encoded list of { address, use_with_exit_node } nameserver blocks."
+
+[fields.split_dns]
+type = "String"
+required = false
+description = "JSON-encoded list of { domain, nameservers[] } split-DNS route blocks."
