@@ -1,5 +1,8 @@
 # tailscale-terraform-resources — TOML resource specs for Tailscale
 
+> **★★★ CSE / Knowable Construction.** This repo operates under **Constructive Substrate Engineering** — canonical specification at [`pleme-io/theory/CONSTRUCTIVE-SUBSTRATE-ENGINEERING.md`](https://github.com/pleme-io/theory/blob/main/CONSTRUCTIVE-SUBSTRATE-ENGINEERING.md). The Compounding Directive (operational rules: solve once, load-bearing fixes only, idiom-first, models stay current, direction beats velocity) is in the org-level pleme-io/CLAUDE.md ★★★ section. Read both before non-trivial changes.
+
+
 Declarative TOML specifications for the 19 Tailscale Terraform resources.
 Same pattern as `datadog-terraform-resources` and `splunk-terraform-resources`.
 Consumed by iac-forge / pangea-forge to generate code for every IaC platform.
